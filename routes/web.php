@@ -18,3 +18,17 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/posts', 'PostsController@index')->name('all_posts');
+Route::get('/posts/{id}', 'PostsController@show')->name('one_post');
+
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin'] , function () {
+
+    // ACL
+    Route::resource('users', 'UsersController');
+    Route::resource('roles', 'RolesController');
+    Route::resource('permissions', 'PermissionsController');
+
+    // Modules
+    Route::resource('posts', 'PostsController');
+});
